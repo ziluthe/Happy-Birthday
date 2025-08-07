@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Ulang Tahun Cikgu Maria</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto:wght@300&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(to bottom right, #f5e8ff, #d1c4e9);
+      overflow: hidden;
+      height: 100vh;
+      color: #4b2e83;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    p {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .music-notes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .note {
+      position: absolute;
+      color: #8e44ad;
+      font-size: 24px;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      to {
+        transform: translateY(-10vh) rotate(360deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      max-width: 500px;
+    }
+
+    .credit {
+      font-size: 0.8em;
+      margin-top: 15px;
+      color: #6a1b9a;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #8e44ad;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #6a1b9a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Happy Birthday, Cikgu Maria Agnes Hutagalung 🎵</h1>
+    <p>
+      Semoga tahun ini penuh harmoni, seperti lagu favoritmu. Terima kasih telah menjadi guru yang
+      selalu menginspirasi dengan cinta dan nada.
+    </p>
+    <div class="credit">
+      ~ Dari siswa-siswimu yang mengagumimu 🎶
+    </div>
+    <div class="button-container">
+      <button id="toggleMusic">⏸️ Pause Music</button>
+    </div>
+  </div>
+
+  <!-- Audio autoplay -->
+  <audio id="birthdayMusic" autoplay loop>
+    <source src="Hb.mp3" type="audio/mp3">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <!-- Animasi not musik -->
+  <div class="music-notes" id="musicNotes"></div>
+
+  <script>
+    const notes = ['🎵', '🎶', '🎼', '𝄞', '♬', '♩', '♪'];
+
+    function createNote() {
+      const note = document.createElement('div');
+      note.classList.add('note');
+      note.innerText = notes[Math.floor(Math.random() * notes.length)];
+      note.style.left = Math.random() * 100 + 'vw';
+      note.style.animationDuration = 3 + Math.random() * 4 + 's';
+      note.style.fontSize = (20 + Math.random() * 20) + 'px';
+      document.getElementById('musicNotes').appendChild(note);
+
+      setTimeout(() => {
+        note.remove();
+      }, 7000);
+    }
+
+    setInterval(createNote, 300);
+
+    // Kontrol Play/Pause
+    const music = document.getElementById('birthdayMusic');
+    const toggleBtn = document.getElementById('toggleMusic');
+
+    toggleBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        toggleBtn.innerText = '⏸️ Pause Music';
+      } else {
+        music.pause();
+        toggleBtn.innerText = '▶️ Play Music';
+      }
+    });
+  </script>
+
+</body>
+</html>
